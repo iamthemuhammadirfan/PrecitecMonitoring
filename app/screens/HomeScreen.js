@@ -1,8 +1,9 @@
 import React, {useRef} from "react";
-import {StyleSheet, Text, View, Image, Animated} from "react-native";
+import {StyleSheet, Dimensions, Image, Animated} from "react-native";
 import AppCard from "../components/AppCard";
 import AppScreen from "../components/AppScreen";
 import {convertWidthToDP, convertHeightToDP} from "../config/utils";
+const {width, height} = Dimensions.get("window");
 const listCategorires = [
   {
     id: 1,
@@ -35,30 +36,25 @@ export default function HomeScreen() {
         contentContainerStyle={{
           alignItems: "center",
         }}
+        snapToInterval={convertWidthToDP("94%")}
+        scrollEventThrottle={convertWidthToDP("100%")}
         bounces={false}
-        decelerationRate={0.98}
-        renderToHardwareTextureAndroid
-        contentContainerStyle={{alignItems: "center"}}
-        snapToInterval={convertWidthToDP("95%")}
-        snapToAlignment="start"
+        decelerationRate={0.88}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}
-        scrollEventThrottle={16}
         data={listCategorires}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item, index}) => {
           const inputRange = [
-            (index - 2) * convertWidthToDP("50%"),
-            (index - 1) * convertWidthToDP("50%"),
-            index * convertWidthToDP("75%"),
+            (index - 1) * convertWidthToDP("84%"),
+            index * convertWidthToDP("84%"),
+            (index + 1) * convertWidthToDP("84%"),
           ];
-
           const translateY = scrollX.interpolate({
             inputRange,
-            outputRange: [0, -100, 0],
-            extrapolate: "clamp",
+            outputRange: [50, 0, 50],
           });
           return (
             <AppCard
