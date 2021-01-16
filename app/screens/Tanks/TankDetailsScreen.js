@@ -23,6 +23,22 @@ export default function TankDetailsScreen() {
             info={data}
             onBottomTitle
           />
+          <AppDashboardCard
+            image={require("../../assets/images/circular-chart.png")}
+            title="Storage Capacity"
+          />
+          <AppDashboardCard
+            image={require("../../assets/images/line-graph.png")}
+            title="Daily Inventry Trend"
+          />
+          <AppDashboardCard
+            image={require("../../assets/images/column-graph.png")}
+            title="Daily Consumption"
+          />
+          <AppDashboardCard
+            image={require("../../assets/images/column-graph.png")}
+            title="Daily Production"
+          />
         </ScrollView>
       </View>
     </AppScreen>

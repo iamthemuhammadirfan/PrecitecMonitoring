@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, View} from "react-native";
 import colors from "../config/colors";
 import {convertHeightToDP, convertWidthToDP} from "../config/utils";
 import AppText from "./AppText";
@@ -35,6 +35,10 @@ export default function AppDashboardCard({title, image, onBottomTitle, info}) {
             </AppText>
           </View>
           <View style={styles.titleLane}>
+            <AppText style={{color: colors.medium}}>{info.material}</AppText>
+            <AppText style={{color: colors.medium}}>{info.level}</AppText>
+          </View>
+          <View style={styles.titleLane}>
             <AppText style={{color: colors.primary, fontWeight: "bold"}}>
               Mass(Kg):
             </AppText>
@@ -43,9 +47,16 @@ export default function AppDashboardCard({title, image, onBottomTitle, info}) {
             </AppText>
           </View>
           <View style={styles.titleLane}>
+            <AppText style={{color: colors.medium}}>{info.mass}</AppText>
+            <AppText style={{color: colors.medium}}>{info.volume}</AppText>
+          </View>
+          <View style={styles.titleLane}>
             <AppText style={{color: colors.primary, fontWeight: "bold"}}>
               Temprature(C):
             </AppText>
+          </View>
+          <View style={styles.titleLane}>
+            <AppText style={{color: colors.medium}}>{info.temprature}</AppText>
           </View>
         </View>
       )}
@@ -58,7 +69,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: convertWidthToDP("2%"),
     backgroundColor: colors.white,
-    padding: convertWidthToDP("4%"),
+    padding: convertWidthToDP("5%"),
     marginVertical: convertHeightToDP("2%"),
   },
   title: {
@@ -69,6 +80,7 @@ const styles = StyleSheet.create({
   titleLane: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginVertical: convertHeightToDP("0.5%"),
   },
   image: {
     width: "100%",
