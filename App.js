@@ -7,10 +7,28 @@
  */
 
 import React from "react";
-import TankDetailsScreen from "./app/screens/Tanks/TankDetailsScreen";
-import DashboardScreen from "./app/screens/Tanks/DashboardScreen";
-import TankListScreen from "./app/screens/Tanks/TankListScreen";
 import TankReportScreen from "./app/screens/Tanks/TankReportScreen";
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import TankDashboardScreen from "./app/screens/Tanks/TankDashboardScreen";
+import TankListScreen from "./app/screens/Tanks/TankListScreen";
+import TankDetailsScreen from "./app/screens/Tanks/TankDetailsScreen";
+import {NavigationContainer} from "@react-navigation/native";
+const TankNavigation = createDrawerNavigator();
 export default function App() {
-  return <TankReportScreen />;
+  return (
+    <NavigationContainer>
+      <TankNavigation.Navigator initialRouteName="TankDashboard">
+        <TankNavigation.Screen
+          name="TankDashboard"
+          component={TankDashboardScreen}
+        />
+        <TankNavigation.Screen name="TankList" component={TankListScreen} />
+        <TankNavigation.Screen
+          name="TankDetails"
+          component={TankDetailsScreen}
+        />
+        <TankNavigation.Screen name="TankReport" component={TankReportScreen} />
+      </TankNavigation.Navigator>
+    </NavigationContainer>
+  );
 }

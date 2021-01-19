@@ -5,10 +5,10 @@ import AppInfoCard from "../../components/AppInfoCard";
 import AppScreen from "../../components/AppScreen";
 import AppTopBar from "../../components/layout/AppTopBar";
 import {convertWidthToDP, convertHeightToDP} from "../../config/utils";
-export default function TankListScreen() {
+export default function TankListScreen({navigation}) {
   return (
     <AppScreen style={{padding: convertWidthToDP("3%")}}>
-      <AppTopBar />
+      <AppTopBar onPress={() => navigation.openDrawer()} />
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <AppInfoCard

@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import {StyleSheet, Text, View} from "react-native";
-
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
 import AppPicker from "../../components/AppPicker";
 import AppScreen from "../../components/AppScreen";
@@ -9,6 +10,7 @@ import AppTopBar from "../../components/layout/AppTopBar";
 import {convertWidthToDP, convertHeightToDP} from "../../config/utils";
 import colors from "../../config/colors";
 import AppText from "../../components/AppText";
+import AppButton from "../../components/AppButton";
 const tanks = [
   {
     label: "Tank 1",
@@ -23,14 +25,19 @@ const tanks = [
     value: 3,
   },
 ];
-export default function TankReportScreen() {
+export default function TankReportScreen({navigation}) {
   const [selectedItem, setSelectedItem] = useState();
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [displayedDate, setDisplayedDate] = useState(moment());
+  const [date, setDate] = useState(moment(new Date()));
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const onChange = (event, sellectedDate) => {
+    setShowDatePicker(false);
+    if (sellectedDate !== undefined) setDate(moment(sellectedDate));
+    else setDate(moment(new Date()));
+    console.log(date);
+  };
   return (
     <AppScreen style={styles.screen}>
-      <AppTopBar />
+      <AppTopBar onPress={() => navigation.openDrawer()} />
       <View style={styles.container}>
         <AppPicker
           items={tanks}
@@ -38,16 +45,34 @@ export default function TankReportScreen() {
           placeholder="Select Tank"
           onSelectItem={(item) => setSelectedItem(item)}
         />
-        <View style={styles.dateSelector}>
-          <AppText>Select Date Range</AppText>
-          <Icon name="calendar-range" size={convertWidthToDP("10%")} />
-        </View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setShowDatePicker(true)}>
+          <View style={styles.dateSelector}>
+            <AppText>
+              {date ? date.format("MMMM DD, YYYY").toString() : "Choose Date"}
+            </AppText>
+            <Icon name="calendar-range" size={convertWidthToDP("10%")} />
+          </View>
+        </TouchableOpacity>
+        {showDatePicker === true && (
+          <DateTimePicker
+            value={new Date(date)}
+            mode="date"
+            display="calendar"
+            onChange={onChange}
+          />
+        )}
+        <AppButton title="Generate Report" style={styles.button} />
       </View>
     </AppScreen>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: colors.primary,
+  },
   screen: {
     padding: convertWidthToDP("3%"),
   },
@@ -66,8 +91,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginVertical: convertHeightToDP("1%"),
-  },
-  daterangeContainer: {
-    marginTop: convertHeightToDP("50%"),
   },
 });
